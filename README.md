@@ -1,2 +1,2 @@
-# mcs
-project of my masters research
+# MCS
+Project of my masters research
