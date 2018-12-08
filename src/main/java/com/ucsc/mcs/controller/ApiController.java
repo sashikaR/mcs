@@ -1,13 +1,14 @@
 package com.ucsc.mcs.controller;
 
-import com.ucsc.mcs.beans.MatrixObj;
 import com.ucsc.mcs.beans.MatrixServiceImpl;
 import com.ucsc.mcs.beans.User;
+import com.ucsc.mcs.beans.matrix.MatrixObject;
+import com.ucsc.mcs.beans.matrix.MatrixOne;
+import com.ucsc.mcs.beans.matrix.MatrixTwo;
+import com.ucsc.mcs.beans.matrix.Rows;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -38,20 +39,24 @@ public class ApiController {
     }
 
     @RequestMapping(value = "/matrix", method = RequestMethod.GET)
-    public ResponseEntity<MatrixObj> multiplyMatrix(){
-        MatrixObj.Rows row1 = matrixServiceImpl.getARow("12,11,13,5");
-        MatrixObj.Rows row2 = matrixServiceImpl.getARow("2,0,0,5");
-        MatrixObj.Rows row3 = matrixServiceImpl.getARow("12,30,60,95");
+    public ResponseEntity<MatrixObject> multiplyMatrix(){
+        Rows row1 = matrixServiceImpl.getARow("12,11,13,5");
+        Rows row2 = matrixServiceImpl.getARow("2,0,0,5");
+        Rows row3 = matrixServiceImpl.getARow("12,30,60,95");
 
-        ArrayList<MatrixObj.Rows> rowsList = new ArrayList<>();
+        ArrayList<Rows> rowsList = new ArrayList<>();
         rowsList.add(0,row1);
         rowsList.add(1,row2);
         rowsList.add(2,row3);
 
-        MatrixObj.MatrixOne matrixOne = matrixServiceImpl.getMatrixOne(rowsList);
-        MatrixObj matrixObj = matrixServiceImpl.getMatrix("123",matrixOne,null);
+        MatrixOne matrixOne = matrixServiceImpl.getMatrixOne(rowsList);
+        MatrixTwo matrixTwo = matrixServiceImpl.getMatrixTwo(rowsList);
+        MatrixObject matrixObj = new MatrixObject();
+        matrixObj.setMatrixOne(matrixOne);
+        matrixObj.setMatrixTwo(matrixTwo);
+        matrixServiceImpl.multiplyMatrix(matrixObj);
 
-        return new ResponseEntity<MatrixObj>(matrixObj, HttpStatus.OK);
+        return new ResponseEntity<MatrixObject>(matrixObj, HttpStatus.OK);
     }
 
 

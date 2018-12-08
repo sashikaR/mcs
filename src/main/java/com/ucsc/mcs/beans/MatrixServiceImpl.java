@@ -1,5 +1,9 @@
 package com.ucsc.mcs.beans;
 
+import com.ucsc.mcs.beans.matrix.MatrixObject;
+import com.ucsc.mcs.beans.matrix.MatrixOne;
+import com.ucsc.mcs.beans.matrix.MatrixTwo;
+import com.ucsc.mcs.beans.matrix.Rows;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -9,37 +13,30 @@ import java.util.ArrayList;
 public class MatrixServiceImpl implements MatrixService{
 
     @Override
-    public String multiplyMatrix(MatrixObj matrixObj) {
-        MatrixObj.MatrixOne matrixOne = matrixObj.getMatrixOne();
-        MatrixObj.MatrixTwo matrixTwo = matrixObj.getMatrixTwo();
-        System.out.println("Recieved matrixOne :"+matrixOne.getRows().get(0).getValues());
-        System.out.println("Recieved matrixTwo :"+matrixTwo.getRows().get(0).getValues());
+    public String multiplyMatrix(MatrixObject matrixObj) {
+        MatrixOne matrixOne = matrixObj.getMatrixOne();
+        MatrixTwo matrixTwo = matrixObj.getMatrixTwo();
+        System.out.println("Recieved matrixOne :"+matrixOne.getRows());
+        System.out.println("Recieved matrixTwo :"+matrixTwo.getRows());
         return null;
     }
 
-    public MatrixObj.MatrixOne getMatrixOne(ArrayList<MatrixObj.Rows> rows){
-        MatrixObj matrixObj = new MatrixObj();
-        MatrixObj.MatrixOne one = matrixObj.new MatrixOne();
+    public MatrixOne getMatrixOne(ArrayList<Rows> rows){
+        MatrixOne one = new MatrixOne();
         one.setRows(rows);
         return one;
     }
 
-    public MatrixObj.MatrixTwo getMatrixTwo(ArrayList<MatrixObj.Rows> rows){
-        MatrixObj matrixObj = new MatrixObj();
-        MatrixObj.MatrixTwo two = matrixObj.new MatrixTwo();
+    public MatrixTwo getMatrixTwo(ArrayList<Rows> rows){
+        MatrixTwo two = new MatrixTwo();
         two.setRows(rows);
         return two;
     }
 
-    public MatrixObj.Rows getARow(String values){
-        MatrixObj matrixObj = new MatrixObj();
-        MatrixObj.Rows rows = matrixObj.new Rows(values);
+    public Rows getARow(String values){
+        Rows rows = new Rows();
+        rows.setValues(values);
         return rows;
     }
-
-    public MatrixObj getMatrix(final String id, final MatrixObj.MatrixOne matrixOne,
-                               final MatrixObj.MatrixTwo matrixTwo){
-        MatrixObj matrixObj = new MatrixObj(id,matrixOne,matrixTwo);
-        return matrixObj;
-    }
+    
 }

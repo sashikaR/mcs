@@ -1,16 +1,19 @@
 package com.ucsc.mcs.beans;
 
+import com.ucsc.mcs.beans.matrix.MatrixObject;
+import com.ucsc.mcs.beans.matrix.MatrixOne;
+import com.ucsc.mcs.beans.matrix.MatrixTwo;
+import com.ucsc.mcs.beans.matrix.Rows;
+
 import java.util.ArrayList;
 
 public interface MatrixService {
-    public String multiplyMatrix(MatrixObj matrixObj);
+    public String multiplyMatrix(MatrixObject matrixObj);
 
-    public MatrixObj.MatrixOne getMatrixOne(ArrayList<MatrixObj.Rows> rows);
+    public MatrixOne getMatrixOne(ArrayList<Rows> rows);
 
-    public MatrixObj.MatrixTwo getMatrixTwo(ArrayList<MatrixObj.Rows> rows);
+    public MatrixTwo getMatrixTwo(ArrayList<Rows> rows);
 
-    public MatrixObj getMatrix(final String id, final MatrixObj.MatrixOne matrixOne,
-                               final MatrixObj.MatrixTwo matrixTwo);
 
-    public MatrixObj.Rows getARow(String values);
+    public Rows getARow(String values);
 }
