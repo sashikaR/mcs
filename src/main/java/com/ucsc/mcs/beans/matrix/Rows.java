@@ -1,14 +1,14 @@
 package com.ucsc.mcs.beans.matrix;
 
 public class Rows {
-    private String values;
+    private int[] values;
 
-    public String getValues ()
+    public int[] getValues ()
     {
         return values;
     }
 
-    public void setValues (String values)
+    public void setValues (int[] values)
     {
         this.values = values;
     }

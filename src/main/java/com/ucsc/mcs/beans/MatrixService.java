@@ -15,5 +15,7 @@ public interface MatrixService {
     public MatrixTwo getMatrixTwo(ArrayList<Rows> rows);
 
 
-    public Rows getARow(String values);
+    public Rows getARow(int[] values);
+
+    public int[] getIntArray(String values);
 }

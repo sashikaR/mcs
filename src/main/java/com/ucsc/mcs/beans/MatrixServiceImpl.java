@@ -33,10 +33,21 @@ public class MatrixServiceImpl implements MatrixService{
         return two;
     }
 
-    public Rows getARow(String values){
+    public Rows getARow(int[] values){
         Rows rows = new Rows();
         rows.setValues(values);
         return rows;
+    }
+
+    public int[] getIntArray(String values){
+        String[] valuesList = values.split(",");
+        int[] intList = new  int[valuesList.length];
+        int i=0;
+        for(String a :valuesList){
+            intList[i] = Integer.parseInt(a);
+            i=i+1;
+        }
+        return intList;
     }
     
 }

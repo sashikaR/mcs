@@ -40,9 +40,9 @@ public class ApiController {
 
     @RequestMapping(value = "/matrix", method = RequestMethod.GET)
     public ResponseEntity<MatrixObject> multiplyMatrix(){
-        Rows row1 = matrixServiceImpl.getARow("12,11,13,5");
-        Rows row2 = matrixServiceImpl.getARow("2,0,0,5");
-        Rows row3 = matrixServiceImpl.getARow("12,30,60,95");
+        Rows row1 = matrixServiceImpl.getARow(matrixServiceImpl.getIntArray("12,11,13,5"));
+        Rows row2 = matrixServiceImpl.getARow(matrixServiceImpl.getIntArray("2,0,0,5"));
+        Rows row3 = matrixServiceImpl.getARow(matrixServiceImpl.getIntArray("12,30,60,95"));
 
         ArrayList<Rows> rowsList = new ArrayList<>();
         rowsList.add(0,row1);
