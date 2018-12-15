@@ -18,8 +18,6 @@ public class MatrixServiceImpl implements MatrixService{
         final int matrixOneRowCount=matrixOne.getRows().size();
         final int matrixOneColumnCount=matrixOne.getColumnCount();
 
-//        System.out.println("Matrix One column :" + matrixOneColumnCount);
-
         final int matrixTwoRowCount=matrixTwo.getRows().size();
         final int matrixTwoColumnCount=matrixTwo.getColumnCount();
 
@@ -70,8 +68,6 @@ public class MatrixServiceImpl implements MatrixService{
     }
 
     private int[][] multiplyMatrices(int[][] matrixOne, int[][] matrixTwo, int r1, int c1, int c2) {
-
-
         // Mutliplying Two matrices
         int[][] product = new int[r1][c2];
         for(int i = 0; i < r1; i++) {
@@ -84,6 +80,7 @@ public class MatrixServiceImpl implements MatrixService{
         printArray(product,"Result");
      return product;
     }
+
     private void  printArray(int[][] matrixProduct, String label){
         // Displaying the result
         System.out.println("Printing matrix: "+label);
