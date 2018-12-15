@@ -1,24 +1,42 @@
 package com.ucsc.mcs.beans;
 
-import com.ucsc.mcs.beans.matrix.MatrixObject;
-import com.ucsc.mcs.beans.matrix.MatrixOne;
-import com.ucsc.mcs.beans.matrix.MatrixTwo;
-import com.ucsc.mcs.beans.matrix.Rows;
+import com.ucsc.mcs.beans.matrix.*;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 
 @Component
 public class MatrixServiceImpl implements MatrixService{
 
     @Override
-    public String multiplyMatrix(MatrixObject matrixObj) {
+    public ResponseMatrix multiplyMatrix(MatrixObject matrixObj) {
         MatrixOne matrixOne = matrixObj.getMatrixOne();
         MatrixTwo matrixTwo = matrixObj.getMatrixTwo();
-        System.out.println("Recieved matrixOne :"+matrixOne.getRows());
-        System.out.println("Recieved matrixTwo :"+matrixTwo.getRows());
-        return null;
+
+        final int matrixOneRowCount=matrixOne.getRows().size();
+        final int matrixOneColumnCount=matrixOne.getColumnCount();
+
+//        System.out.println("Matrix One column :" + matrixOneColumnCount);
+
+        final int matrixTwoRowCount=matrixTwo.getRows().size();
+        final int matrixTwoColumnCount=matrixTwo.getColumnCount();
+
+//        System.out.println("Matrix Two column :"+matrixTwoColumnCount);
+
+        int[][] matrixOneArray = matrixOne.getRowsAsIntArray(matrixOne.getRows());
+        int[][] matrixTwoArray = matrixTwo.getRowsAsIntArray(matrixTwo.getRows());
+
+        printArray(matrixOneArray, "MatrixOne");
+        printArray(matrixTwoArray, "MatrixTwo");
+
+        int[][] responseRows = multiplyMatrices(matrixOneArray,matrixTwoArray,matrixOneRowCount,matrixOneColumnCount,matrixTwoColumnCount);
+
+        ResponseMatrix response = new ResponseMatrix();
+        response.setRequestId(matrixObj.getRequestId());
+        response.setRows(responseRows);
+        return response;
     }
 
     public MatrixOne getMatrixOne(ArrayList<Rows> rows){
@@ -34,8 +52,9 @@ public class MatrixServiceImpl implements MatrixService{
     }
 
     public Rows getARow(int[] values){
+        String row = Arrays.toString(values);
         Rows rows = new Rows();
-        rows.setValues(values);
+        rows.setValues(row);
         return rows;
     }
 
@@ -48,6 +67,33 @@ public class MatrixServiceImpl implements MatrixService{
             i=i+1;
         }
         return intList;
+    }
+
+    private int[][] multiplyMatrices(int[][] matrixOne, int[][] matrixTwo, int r1, int c1, int c2) {
+
+
+        // Mutliplying Two matrices
+        int[][] product = new int[r1][c2];
+        for(int i = 0; i < r1; i++) {
+            for (int j = 0; j < c2; j++) {
+                for (int k = 0; k < c1; k++) {
+                    product[i][j] += matrixOne[i][k] * matrixTwo[k][j];
+                }
+            }
+        }
+        printArray(product,"Result");
+     return product;
+    }
+    private void  printArray(int[][] matrixProduct, String label){
+        // Displaying the result
+        System.out.println("Printing matrix: "+label);
+        for(int[] row : matrixProduct) {
+            for (int column : row) {
+                System.out.print(column + "    ");
+            }
+            System.out.println();
+        }
+
     }
     
 }

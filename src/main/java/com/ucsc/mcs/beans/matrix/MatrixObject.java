@@ -1,11 +1,16 @@
 package com.ucsc.mcs.beans.matrix;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class MatrixObject {
 
+        @JsonProperty("requestId")
         private String requestId;
 
+        @JsonProperty("matrixOne")
         private MatrixOne matrixOne;
 
+        @JsonProperty("matrixTwo")
         private MatrixTwo matrixTwo;
 
         public String getRequestId ()
@@ -41,6 +46,6 @@ public class MatrixObject {
         @Override
         public String toString()
         {
-            return "ClassPojo [requestId = "+requestId+", matrixOne = "+matrixOne+", matrixTwo = "+matrixTwo+"]";
+            return "[requestId = "+requestId+", matrixOne = "+matrixOne+", matrixTwo = "+matrixTwo+"]";
         }
 }

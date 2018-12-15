@@ -4,6 +4,7 @@ package com.ucsc.mcs.controller;
 import com.ucsc.mcs.beans.MatrixServiceImpl;
 import com.ucsc.mcs.beans.Welcome;
 import com.ucsc.mcs.beans.matrix.MatrixObject;
+import com.ucsc.mcs.beans.matrix.ResponseMatrix;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,9 +33,10 @@ public class Controller {
 
     @RequestMapping(value = "/matrix", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseEntity<String> multiplyMatrix(@RequestBody MatrixObject matrixObj) throws Exception{
-        matrixServiceImpl.multiplyMatrix(matrixObj);
-        return new ResponseEntity<String>("object comes", HttpStatus.OK);
+    public ResponseEntity<ResponseMatrix> multiplyMatrix(@RequestBody MatrixObject matrixObj) throws Exception{
+        System.out.println("Recieved :"+matrixObj.toString());
+        ResponseMatrix response = matrixServiceImpl.multiplyMatrix(matrixObj);
+        return new ResponseEntity<ResponseMatrix>(response, HttpStatus.OK);
     }
 
 

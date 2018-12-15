@@ -1,14 +1,11 @@
 package com.ucsc.mcs.beans;
 
-import com.ucsc.mcs.beans.matrix.MatrixObject;
-import com.ucsc.mcs.beans.matrix.MatrixOne;
-import com.ucsc.mcs.beans.matrix.MatrixTwo;
-import com.ucsc.mcs.beans.matrix.Rows;
+import com.ucsc.mcs.beans.matrix.*;
 
 import java.util.ArrayList;
 
 public interface MatrixService {
-    public String multiplyMatrix(MatrixObject matrixObj);
+    public ResponseMatrix multiplyMatrix(MatrixObject matrixObj);
 
     public MatrixOne getMatrixOne(ArrayList<Rows> rows);
 

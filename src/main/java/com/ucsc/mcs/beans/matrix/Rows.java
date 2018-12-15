@@ -1,21 +1,24 @@
 package com.ucsc.mcs.beans.matrix;
 
-public class Rows {
-    private int[] values;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-    public int[] getValues ()
+public class Rows {
+    @JsonProperty("value")
+    private String value;
+
+    public String getValues ()
     {
-        return values;
+        return value;
     }
 
-    public void setValues (int[] values)
+    public void setValues (String value)
     {
-        this.values = values;
+        this.value = value;
     }
 
     @Override
     public String toString()
     {
-        return "ClassPojo [values = "+values+"]";
+        return "[value = "+value+"]";
     }
 }
