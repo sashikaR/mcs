@@ -21,8 +21,6 @@ public class MatrixServiceImpl implements MatrixService{
         final int matrixTwoRowCount=matrixTwo.getRows().size();
         final int matrixTwoColumnCount=matrixTwo.getColumnCount();
 
-//        System.out.println("Matrix Two column :"+matrixTwoColumnCount);
-
         int[][] matrixOneArray = matrixOne.getRowsAsIntArray(matrixOne.getRows());
         int[][] matrixTwoArray = matrixTwo.getRowsAsIntArray(matrixTwo.getRows());
 
@@ -92,5 +90,65 @@ public class MatrixServiceImpl implements MatrixService{
         }
 
     }
+
+    public ResponseMatrix multiplyMatrixInMultiThreaded(MatrixObject matrixObj){
+        final int NUM_OF_THREADS = 9;
+
+        MatrixOne matrixOne = matrixObj.getMatrixOne();
+        MatrixTwo matrixTwo = matrixObj.getMatrixTwo();
+
+        final int matrixOneRowCount=matrixOne.getRows().size();
+        final int matrixOneColumnCount=matrixOne.getColumnCount();
+
+        final int matrixTwoRowCount=matrixTwo.getRows().size();
+        final int matrixTwoColumnCount=matrixTwo.getColumnCount();
+
+        int[][] matrixOneArray = matrixOne.getRowsAsIntArray(matrixOne.getRows());
+        int[][] matrixTwoArray = matrixTwo.getRowsAsIntArray(matrixTwo.getRows());
+
+        printArray(matrixOneArray, "MatrixOne");
+        printArray(matrixTwoArray, "MatrixTwo");
+
+        int[][] result = multiplyMatricesParallel(matrixOneArray,matrixTwoArray,matrixOneRowCount,matrixTwoColumnCount,NUM_OF_THREADS);
+        ResponseMatrix response = new ResponseMatrix();
+        response.setRequestId(matrixObj.getRequestId());
+        response.setRows(result);
+        return response;
+    }
+
+    private int[][] multiplyMatricesParallel(int[][] matrixOne, int[][] matrixTwo, int matrixOneRowCount, int matrixTwoColumnCount,
+                                             int numOfThreads) {
+        int row;
+        int col;
+        int A[][] = matrixOne;
+        int B[][] = matrixTwo;
+        int C[][] = new int[matrixOneRowCount][matrixTwoColumnCount];
+        int threadcount = 0;
+        Thread[] thrd = new Thread[numOfThreads];
+
+        try
+        {
+            for(row = 0 ; row < matrixOneRowCount; row++)
+            {
+                for (col = 0 ; col < matrixTwoColumnCount; col++ )
+                {
+                    // creating thread for multiplications
+                    thrd[threadcount] = new Thread(new Worker(row, col, A, B, C));
+                    thrd[threadcount].start(); //thread start
+
+                    thrd[threadcount].join(); // joining threads
+                    threadcount++;
+                }
+
+            }
+
+        }
+        catch (InterruptedException ie){}
+
+        printArray(C, "Result M:");
+        return C;
+    }
+
+
     
 }

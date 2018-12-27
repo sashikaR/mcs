@@ -34,8 +34,17 @@ public class Controller {
     @RequestMapping(value = "/matrix", method = RequestMethod.POST)
     @ResponseBody
     public ResponseEntity<ResponseMatrix> multiplyMatrix(@RequestBody MatrixObject matrixObj) throws Exception{
-        System.out.println("Recieved :"+matrixObj.toString());
+        System.out.println("Received :"+matrixObj.toString());
         ResponseMatrix response = matrixServiceImpl.multiplyMatrix(matrixObj);
+        return new ResponseEntity<ResponseMatrix>(response, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/matrix/m", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity<ResponseMatrix> multiplyMatrixMultiThread(@RequestBody MatrixObject matrixObj) throws Exception{
+        System.out.println("Received :"+matrixObj.toString());
+        System.out.println("Processing with multi-threaded :");
+        ResponseMatrix response = matrixServiceImpl.multiplyMatrixInMultiThreaded(matrixObj);
         return new ResponseEntity<ResponseMatrix>(response, HttpStatus.OK);
     }
 
