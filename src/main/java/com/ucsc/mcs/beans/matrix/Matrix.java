@@ -50,4 +50,9 @@ public class Matrix {
         return columnCount;
     }
 
+    public void setColumnCount (int columnSize)
+    {
+        this.columnCount = columnSize;
+    }
+
 }

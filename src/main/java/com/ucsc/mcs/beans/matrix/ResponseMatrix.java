@@ -8,6 +8,7 @@ import java.util.ArrayList;
  * Created by sr40351 on 12/12/18.
  */
 public class ResponseMatrix {
+
     @JsonProperty("requestId")
     private String requestId;
 
@@ -20,6 +21,14 @@ public class ResponseMatrix {
 
     public void setRows(int[][] rows) {
         this.rows = rows;
+    }
+
+    public String getRequestId() {
+        return requestId;
+    }
+
+    public int[][] getRows() {
+        return rows;
     }
 
 }
