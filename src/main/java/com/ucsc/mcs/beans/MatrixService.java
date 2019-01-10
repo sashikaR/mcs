@@ -9,6 +9,8 @@ public interface MatrixService {
 
     public ResponseMatrix multiplyMatrixInMultiThreaded(MatrixObject matrixObj);
 
+    public void multiplyMatrixInSingleCore();
+
     public MatrixOne getMatrixOne(ArrayList<Rows> rows);
 
     public MatrixTwo getMatrixTwo(ArrayList<Rows> rows);

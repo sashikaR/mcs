@@ -1,6 +1,9 @@
 package com.ucsc.mcs.beans;
 
 import com.ucsc.mcs.beans.matrix.*;
+import net.openhft.affinity.Affinity;
+import net.openhft.affinity.AffinityLock;
+import net.openhft.affinity.impl.VanillaCpuLayout;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -149,6 +152,14 @@ public class MatrixServiceImpl implements MatrixService{
         return C;
     }
 
+    public void multiplyMatrixInSingleCore(){
+        Affinity lockInventory;
+
+        AffinityLock core = Affinity.acquireCore();
+        boolean isUsed = core.isAllocated();
+
+
+    }
 
     
 }
