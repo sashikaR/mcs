@@ -48,5 +48,13 @@ public class Controller {
         return new ResponseEntity<ResponseMatrix>(response, HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/matrix/af", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity<ResponseMatrix> multiplyMatrixInSingleCore(@RequestBody MatrixObject matrixObj) throws Exception{
+        System.out.println("Received :");
+        System.out.println("Processing in single core:");
+        ResponseMatrix response =matrixServiceImpl.multiplyMatrixInSingleCore(matrixObj);
+        return new ResponseEntity<ResponseMatrix>(response, HttpStatus.OK);
+    }
 
 }

@@ -1,13 +1,16 @@
 package com.ucsc.mcs.beans;
 
 import com.ucsc.mcs.beans.matrix.*;
-import net.openhft.affinity.Affinity;
 import net.openhft.affinity.AffinityLock;
-import net.openhft.affinity.impl.VanillaCpuLayout;
+import net.openhft.affinity.AffinityStrategies;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 
 @Component
@@ -152,13 +155,26 @@ public class MatrixServiceImpl implements MatrixService{
         return C;
     }
 
-    public void multiplyMatrixInSingleCore(){
-        Affinity lockInventory;
-
-        AffinityLock core = Affinity.acquireCore();
-        boolean isUsed = core.isAllocated();
-
-
+    public ResponseMatrix multiplyMatrixInSingleCore(MatrixObject matrixObj){
+        ResponseMatrix responseMatrix= null;
+        try (final AffinityLock al = AffinityLock.acquireLock()) {
+            System.out.println("Main locked");
+            try {
+                AffinityLock al2 = al.acquireLock(AffinityStrategies.DIFFERENT_SOCKET,
+                        AffinityStrategies.ANY);
+                System.out.println("Thread-0 id, bind cpu id:"+ al2.cpuId());
+                ExecutorService executor = Executors.newCachedThreadPool();
+                Future<ResponseMatrix> futureMatrixResponse =executor.submit(new CallableMatrix(matrixObj));
+                responseMatrix = futureMatrixResponse.get();
+                al2.release();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
+            al.release();
+        }
+        return responseMatrix;
     }
 
     
