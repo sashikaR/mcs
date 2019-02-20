@@ -6,21 +6,29 @@ import com.google.gson.JsonObject;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.PrintStream;
 import java.util.Random;
 
 public class JsonMatrixBuilder {
-    private static final int matrixOneRows = 3;
-    private static final int matrixOneColumns = 5;
+    private static  int matrixOneRows = 3;
+    private static  int matrixOneColumns = 5;
 
     private static final int matrixTwoRows =matrixOneColumns;
-    private static final int matrixTwoColumns=2;
+    private static  int matrixTwoColumns=2;
+
+    public JsonMatrixBuilder(int matrixOneRows1, int matrixOneColumns1, int matrixTwoColumns1){
+        matrixOneRows=matrixOneRows1;
+        matrixOneColumns=matrixOneColumns1;
+        matrixTwoColumns=matrixTwoColumns1;
+
+    }
 
     public static void main(String[] args){
-        JsonMatrixBuilder jsonMatrixBuilder = new JsonMatrixBuilder();
+        JsonMatrixBuilder jsonMatrixBuilder = new JsonMatrixBuilder(100,10,75);
         jsonMatrixBuilder.generateMatrix();
 
-        JsonMatrixBuilder jsonMatrixBuilder1 = new JsonMatrixBuilder();
+        JsonMatrixBuilder jsonMatrixBuilder1 = new JsonMatrixBuilder(100,10,90);
         jsonMatrixBuilder1.generateMatrix();
     }
 
@@ -40,7 +48,7 @@ public class JsonMatrixBuilder {
 
     private void appendToFile(final String jsonRequest){
         try{
-            PrintStream fileStream = new PrintStream(new File("REQUESTS.CSV"));
+            PrintStream fileStream = new PrintStream(new FileOutputStream("REQUESTS.CSV",true));
             fileStream.println(jsonRequest);
         }catch (FileNotFoundException fe){
             System.out.println("File not found ...!"+fe.getLocalizedMessage());
