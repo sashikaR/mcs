@@ -1,10 +1,9 @@
 package com.ucsc.mcs.builder;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.PrintStream;
@@ -12,7 +11,7 @@ import java.util.Random;
 
 public class JsonMatrixBuilder {
     private static  int matrixOneRows = 3;
-    private static  int matrixOneColumns = 5;
+    private static  int matrixOneColumns = 2;
 
     private static final int matrixTwoRows =matrixOneColumns;
     private static  int matrixTwoColumns=2;
@@ -35,12 +34,13 @@ public class JsonMatrixBuilder {
     public void generateMatrix(){
         Gson request = new Gson();
 
-        JsonObject requestObjt = new JsonObject();
-        requestObjt.addProperty("requestId",123);
-        requestObjt.add("matrixOne",getMatrixOne());
-        requestObjt.add("matrixTwo", getMatrixTwo());
+        JSONObject requestObjt = new JSONObject();
+        requestObjt.put("requestId",123);
+        requestObjt.put("matrixOne",getMatrixOne());
+        requestObjt.put("matrixTwo", getMatrixTwo());
 
-        String jsonRequest = request.toJson(requestObjt);
+        String jsonRequest = requestObjt.toString();
+
         System.out.println("----------------- Json Request ----------------------------------");
         System.out.println(jsonRequest);
         appendToFile(jsonRequest);
@@ -57,26 +57,39 @@ public class JsonMatrixBuilder {
 
     }
 
-    private JsonObject getMatrixOne(){
-        JsonObject matrixOne = new JsonObject();
-        matrixOne.addProperty("columnCount",matrixOneColumns);
-        matrixOne.add("rows", getRows(matrixOneRows,matrixOneColumns));
+    private JSONObject getMatrixOne(){
+        JSONObject matrixOne = new JSONObject();
+        matrixOne.put("columnCount",matrixOneColumns);
+//        matrixOne.add("rows", getRows(matrixOneRows,matrixOneColumns));
+        matrixOne.put("rows", getIntRows(matrixOneRows,matrixOneColumns));
         return matrixOne;
     }
 
-    private JsonObject getMatrixTwo(){
-        JsonObject matrixTwo = new JsonObject();
-        matrixTwo.addProperty("columnCount",matrixTwoColumns);
-        matrixTwo.add("rows", getRows(matrixTwoRows,matrixTwoColumns));
+    private JSONObject getMatrixTwo(){
+        JSONObject matrixTwo = new JSONObject();
+        matrixTwo.put("columnCount",matrixTwoColumns);
+//        matrixTwo.add("rows", getRows(matrixTwoRows,matrixTwoColumns));
+        matrixTwo.put("rows", getIntRows(matrixTwoRows,matrixTwoColumns));
         return matrixTwo;
     }
 
-    private JsonArray getRows(int numRows,int numColumns){
-        JsonArray rows = new JsonArray();
+    private JSONArray getRows(int numRows,int numColumns){
+        JSONArray rows = new JSONArray();
         for(int i=0; i< numRows;i++){
-            JsonObject matrixRow = new JsonObject();
-            matrixRow.addProperty("value",generateValues(numColumns));
-            rows.add(matrixRow);
+            JSONObject matrixRow = new JSONObject();
+            matrixRow.put("value",generateValues(numColumns));
+            rows.put(matrixRow);
+        }
+        return rows;
+    }
+
+    private JSONArray getIntRows(int numRows,int numColumns){
+        JSONArray rows = new JSONArray();
+        for(int i=0; i< numRows;i++){
+            JSONObject matrixRow = new JSONObject();
+            matrixRow.put("value", generateIntValues(numColumns));
+//            matrixRow.addProperty("value", String.valueOf(intRow));
+            rows.put(matrixRow);
         }
         return rows;
     }
@@ -90,6 +103,14 @@ public class JsonMatrixBuilder {
             }
         }
         return value;
+    }
+
+    private JSONArray generateIntValues(int numColumns){
+        JSONArray arr = new JSONArray();
+        for(int i=0; i<numColumns;i++){
+            arr.put(getRandomNumber());
+        }
+        return arr;
     }
 
     private static int getRandomNumber() {
