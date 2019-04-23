@@ -15,11 +15,10 @@ def home():
 
 
 
-@app.route('/matrix', methods=['POST'])
+@app.route('/matrix/p', methods=['POST'])
 def matrix():
 	content = request.get_json()
 	response = getJsonValues(content)
 	return Response (response, mimetype="application/json")
-	#return jsonify(request.json), 201
 
 app.run()

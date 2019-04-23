@@ -2,26 +2,26 @@ import multiprocessing
 # Program to multiply two matrices using nested loops
 
 def multiplyMatrix(AList, BList,CList):
-	print ("----  A --------")
-	print AList
-	print ("----  B --------")
-	print BList
-	print ("----  C --------")
-	print CList
+	#print ("----  A --------")
+	#print AList
+	#print ("----  B --------")
+	#print BList
+	#print ("----  C --------")
+	#print CList
 	# iterate through rows of X
 	for i in range(len(AList)):
-		print ("----  A --------")
-		print i
+	#	print ("----  A --------")
+	#	print i
 		# iterate through columns of Y
 		for j in range(len(BList[0])):
-			print ("---- B[0] --------")
-			print j
+	#		print ("---- B[0] --------")
+	#		print j
 		   # iterate through rows of Y
 			for k in range(len(BList)):
 				CList[i][j] += AList[i][k] * BList[k][j]
-				print ("---- C --------")
-				print k
-				print (CList)
+	#			print ("---- C --------")
+	#			print k
+	#			print (CList)
 	return CList
 
 def multiplyInnerMatrix(AList, BList, CList, i):
@@ -54,7 +54,7 @@ Y = [[7,8],
 # result is 2x2
 result = [[0,0],[0,0]]
 R = multiplyMatrix(X,Y,result)
-print("Printing result: \n")
-for r in R:
-	   print(r)
+#print("Printing result: \n")
+#for r in R:
+#	   print(r)
 
