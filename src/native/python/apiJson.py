@@ -48,5 +48,26 @@ def getJsonValues(req_data):
 	#	print(r)
 	return json.dumps(R)
 
+#
+# Retrieve matrix multiplication values by processing single thead
+#
+def getJsonValuesFromSingleProcesser(req_data):
+	RequestId = req_data['requestId']
+	MatrixOne_Rows = req_data['matrixOne']['rows']
+	MatrixOne_Rows_Count = len(MatrixOne_Rows)
+   
+	MatrixOne = getMatrixFromRows(MatrixOne_Rows)
+	#print MatrixOne
+	one = MatrixOne
+	MatrixTwo_Rows = req_data['matrixTwo']['rows']
+	MatrixTwo_Coloumn = req_data['matrixTwo']['columnCount']  
+	MatrixTwo = getMatrixFromRows(MatrixTwo_Rows)
+	#print MatrixTwo
+	two = MatrixTwo
+	result_holder = getResultMatrixHolder(MatrixTwo_Coloumn,MatrixOne_Rows_Count)
+	answer = result_holder
+	R = multiplyMatrix(one,two,answer)
+	return json.dumps(R)
+
 
 
