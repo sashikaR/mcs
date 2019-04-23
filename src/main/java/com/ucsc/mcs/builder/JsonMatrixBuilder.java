@@ -1,6 +1,5 @@
 package com.ucsc.mcs.builder;
 
-import com.google.gson.Gson;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -32,8 +31,6 @@ public class JsonMatrixBuilder {
     }
 
     public void generateMatrix(){
-        Gson request = new Gson();
-
         JSONObject requestObjt = new JSONObject();
         requestObjt.put("requestId",123);
         requestObjt.put("matrixOne",getMatrixOne());
