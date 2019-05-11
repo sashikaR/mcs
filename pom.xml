@@ -88,7 +88,28 @@
                 <configuration>
                         <includeSystemScope>true</includeSystemScope>
                 </configuration>
-            </plugin>
+	</plugin>
+	<plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>exec-maven-plugin</artifactId>
+            <version>1.2.1</version>
+            <executions>
+                <execution>
+                    <goals>
+                        <goal>exec</goal>
+                    </goals>
+                </execution>
+            </executions>
+            <configuration>
+                <executable>java</executable>
+                <arguments>
+                     <argument>-classpath</argument>
+		     <!-- <argument>local.jar;target/project-jar-with-dependencies.jar</argument> -->
+		     <!-- <argument>xpress.audio.AudioProducer</argument> -->
+	     </arguments>
+	         <mainClass>com.ucsc.mcs.builder.JsonMatrixBuilder</mainClass>
+            </configuration>
+        </plugin>
         </plugins>
         <pluginManagement>
 
