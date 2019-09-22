@@ -13,11 +13,11 @@
 
 pip install Flask
 
-# Programe executions - Java
+# Program executions - Java
 1. cd target
 2. java -jar mcs-1.0-SNAPSHOT.jar
 
-# Programe executions - Python
+# Program executions - Python
 1. cd src/native/python/
 2. ./api.py
 3. ./parallel_api.py
