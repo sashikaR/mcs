@@ -23,10 +23,10 @@ public class JsonMatrixBuilder {
     }
 
     public static void main(String[] args){
-        JsonMatrixBuilder jsonMatrixBuilder = new JsonMatrixBuilder(100,10,75);
-        jsonMatrixBuilder.generateMatrix();
+        //JsonMatrixBuilder jsonMatrixBuilder = new JsonMatrixBuilder(100,10,75);
+        //jsonMatrixBuilder.generateMatrix();
 
-        JsonMatrixBuilder jsonMatrixBuilder1 = new JsonMatrixBuilder(100,10,90);
+        JsonMatrixBuilder jsonMatrixBuilder1 = new JsonMatrixBuilder(9,2,3);
         jsonMatrixBuilder1.generateMatrix();
     }
 
@@ -57,7 +57,10 @@ public class JsonMatrixBuilder {
     private JSONObject getMatrixOne(){
         JSONObject matrixOne = new JSONObject();
         matrixOne.put("columnCount",matrixOneColumns);
-//        matrixOne.add("rows", getRows(matrixOneRows,matrixOneColumns));
+        // for Java API
+//        matrixOne.put("rows", getRows(matrixOneRows,matrixOneColumns));
+
+        // for python API
         matrixOne.put("rows", getIntRows(matrixOneRows,matrixOneColumns));
         return matrixOne;
     }
@@ -65,7 +68,11 @@ public class JsonMatrixBuilder {
     private JSONObject getMatrixTwo(){
         JSONObject matrixTwo = new JSONObject();
         matrixTwo.put("columnCount",matrixTwoColumns);
-//        matrixTwo.add("rows", getRows(matrixTwoRows,matrixTwoColumns));
+
+        // for Java API
+//        matrixTwo.put("rows", getRows(matrixTwoRows,matrixTwoColumns));
+
+        // for python API
         matrixTwo.put("rows", getIntRows(matrixTwoRows,matrixTwoColumns));
         return matrixTwo;
     }

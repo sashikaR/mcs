@@ -130,7 +130,7 @@ public class MatrixServiceImpl implements MatrixService{
         int B[][] = matrixTwo;
         int C[][] = new int[matrixOneRowCount][matrixTwoColumnCount];
         int threadcount = 0;
-        Thread[] thrd = new Thread[numOfThreads];
+        Thread[] thrd = new Thread[matrixOneRowCount*matrixTwoColumnCount];
 
         try
         {
