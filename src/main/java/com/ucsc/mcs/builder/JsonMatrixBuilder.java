@@ -23,8 +23,13 @@ public class JsonMatrixBuilder {
     }
 
     public static void main(String[] args){
+
         //JsonMatrixBuilder jsonMatrixBuilder = new JsonMatrixBuilder(100,10,75);
         //jsonMatrixBuilder.generateMatrix();
+
+        JsonMatrixBuilder jsonMatrixBuilder = new JsonMatrixBuilder(3,2,2);
+        jsonMatrixBuilder.generateMatrix();
+
 
         JsonMatrixBuilder jsonMatrixBuilder1 = new JsonMatrixBuilder(9,2,3);
         jsonMatrixBuilder1.generateMatrix();
